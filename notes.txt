@@ -1,0 +1,39 @@
+- Using traditional HTTP REST conventions starts to break down once our data gets very nested
+  user has many friends, friend has (company, postion)
+  /users/23
+  /users/23/friends
+  /users/23/friends/companies
+  /users/23/friends/positions
+- We might end up with something like /users/23/friends_with_companies_and_positions, which breaks RESTful conventions
+- GraphQL tackles solving:
+  - The difficulty of RESTful routing with highly relational data
+  - Over-fetching data
+- GraphQL organizes data into a graph data structure and crawls through the graph
+
+Queries
+{
+  user(id: "40") {
+    firstName
+    company {
+      id
+      name
+    }
+  }
+}
+
+Mutations
+mutation {
+  addUser(firstName: "Stephen", age: 26) {
+    id
+    firstName
+    age
+  }
+}
+
+// AddSong acts as a function that takes in arguments
+mutation AddSong($title: String) {
+  addSong(title: $title) {
+    id
+    title
+  }
+}
